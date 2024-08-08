@@ -1,6 +1,13 @@
 pipeline {
    agent any
     stages {
+        stage("Update Maven Version Requirement") {
+            steps {
+                dir("simple-java-maven-app") {
+                    sh "sed -i 's/\\[3.9.2,/\\[3.8.7,/g' pom.xml"
+                }
+            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
